@@ -1,4 +1,9 @@
 
+import '../../public/extensions/Autodesk.ADN.Viewing.Extension.Basic/Autodesk.ADN.Viewing.Extension.Basic.js';
+import '../../public/extensions/Autodesk.ADN.Viewing.Extension.DockingPanel/Autodesk.ADN.Viewing.Extension.DockingPanel.js';
+import '../../public/extensions/Autodesk.ADN.Viewing.Extension.Workshop/Autodesk.ADN.Viewing.Extension.Workshop.js';
+
+
 Template.viewer.onCreated(function(){
 
     //console.log('viewer template created.')
@@ -23,7 +28,7 @@ Template.viewer.onCreated(function(){
 
 var initViewer = function (token) {
 
-    var defaultUrn = 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bW9kZWwyMDE2LTAyLTAxLTA5LTM2LTQ1LWtubXRvdnV2azZrc2swc3V0aG9hNDZ4cDJkenEvUm9ib3RBcm0uZHdmeA==';
+    var defaultUrn = getDefaultUrn();
 
     if (defaultUrn.indexOf('urn:') !== 0)
         defaultUrn = 'urn:' + defaultUrn;
@@ -61,26 +66,13 @@ var initViewer = function (token) {
         viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, function(){
 
             console.log('GEOMETRY_LOADED_EVENT');
+            
+            viewer.loadExtension('Autodesk.ADN.Viewing.Extension.Basic');
+            
+            viewer.loadExtension('Autodesk.ADN.Viewing.Extension.DockingPanel');
 
-            //load extensions
-            require(['/extensions/Autodesk.ADN.Viewing.Extension.Basic/Autodesk.ADN.Viewing.Extension.Basic.js'],
-                function(){
-                viewer.loadExtension('Autodesk.ADN.Viewing.Extension.Basic');
-            });
-
-            //load extensions
-            require(['/extensions/Autodesk.ADN.Viewing.Extension.DockingPanel/Autodesk.ADN.Viewing.Extension.DockingPanel.js'],
-                function(){
-                    viewer.loadExtension('Autodesk.ADN.Viewing.Extension.DockingPanel');
-                });
-
-            //load extensions
-            require(['/extensions/Autodesk.ADN.Viewing.Extension.Workshop/Autodesk.ADN.Viewing.Extension.Workshop.js'],
-                function(){
-                    viewer.loadExtension('Autodesk.ADN.Viewing.Extension.Workshop');
-                });
-
-
+            viewer.loadExtension('Autodesk.ADN.Viewing.Extension.Workshop');
+            
         });
     }
 
@@ -102,6 +94,3 @@ var initViewer = function (token) {
 
 
 }
-
-
-

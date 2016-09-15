@@ -14,8 +14,8 @@ Meteor.methods({
             credentials: {
                 // Replace placeholder below by the Consumer Key and Consumer Secret you got from
                 // http://developer.autodesk.com/ for the production server
-                client_id: process.env.CONSUMERKEY || '<your consumer key>',
-                client_secret: process.env.CONSUMERSECRET || '<your secret key>',
+                client_id: process.env.CONSUMERKEY || getConsumerKey(),
+                client_secret: process.env.CONSUMERSECRET || getClientSecret(),
                 grant_type: 'client_credentials'
             },
 
